@@ -1,26 +1,12 @@
-// Chargement automatique via data-md (facultatif)
-document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll("[data-md]").forEach(div => {
-    const mdFile = div.getAttribute("data-md");
-    fetch(mdFile)
-      .then(response => response.text())
-      .then(text => {
-        div.innerHTML = marked.parse(text);
-      })
-      .catch(error => {
-        div.innerHTML = "<p style='color:red;'>Erreur de chargement du fichier.</p>";
-        console.error(error);
-      });
-  });
-});
+const md = window.markdownit()
+  .use(window.markdownitSub)
+  .use(window.markdownitSup);
 
-// Chargement manuel à l’appel explicite
 function loadMarkdown(file) {
   fetch(file)
     .then(response => response.text())
     .then(text => {
-      const container = document.getElementById('markdown-content');
-      container.innerHTML = marked.parse(text);
+      document.getElementById('markdown-content').innerHTML = md.render(text);
     })
     .catch(err => {
       document.getElementById('markdown-content').innerHTML = '<p style="color:red;">Erreur de chargement du fichier Markdown.</p>';
