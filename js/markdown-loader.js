@@ -1,4 +1,4 @@
-// Chargement automatique via data-md
+// Chargement automatique via data-md (facultatif)
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll("[data-md]").forEach(div => {
     const mdFile = div.getAttribute("data-md");
@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// Chargement manuel à l’appel explicite (via bouton/lien onclick)
+// Chargement manuel à l’appel explicite
 function loadMarkdown(file) {
   fetch(file)
     .then(response => response.text())
@@ -27,4 +27,3 @@ function loadMarkdown(file) {
       console.error(err);
     });
 }
-
