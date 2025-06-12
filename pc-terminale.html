@@ -1,14 +1,25 @@
-<!DOCTYPE html>
+# Mettre à jour pc-terminale.html pour inclure MathJax pour le rendu LaTeX
+
+latex_pc_terminale_html = '''<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <title>PC Terminale</title>
   <link rel="stylesheet" href="style.css">
-  <!-- Scripts markdown-it et plugins -->
+  <!-- markdown-it avec sub/sup -->
   <script src="https://cdn.jsdelivr.net/npm/markdown-it/dist/markdown-it.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/markdown-it-sub/dist/markdown-it-sub.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/markdown-it-sup/dist/markdown-it-sup.min.js"></script>
   <script src="js/markdown-loader.js" defer></script>
+
+  <!-- MathJax pour les équations LaTeX -->
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
 </head>
 <body>
   <aside>
@@ -35,3 +46,14 @@
   </main>
 </body>
 </html>
+'''
+
+# Écrire ce contenu mis à jour dans pc-terminale.html
+with open(pc_terminale_path, 'w', encoding='utf-8') as file:
+    file.write(latex_pc_terminale_html)
+
+# Recréer une archive zip avec le support LaTeX
+latex_zip_path = "/mnt/data/site_prof_phil-markdownit-latex.zip"
+shutil.make_archive(latex_zip_path.replace(".zip", ""), 'zip', project_root)
+
+latex_zip_path
